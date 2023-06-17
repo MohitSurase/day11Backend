@@ -83,10 +83,24 @@ async function addUserRecord(req, res) {
   res.json({ opr: "Success" });
 }
 
+async function findAllTodo(req, res) {
+  const uri = "mongodb://127.0.0.1:27017";
+  const client = new MongoClient(uri);
+
+  const db = client.db("project");
+  const messageColl = db.collection("todo");
+
+  let list = await messageColl.find().toArray();
+
+  await client.close();
+  res.json(list);
+}
+
 app.get("/addtodo", addTodo);
 app.get("/adduser", addUserRecord);
+app.get("/find-all-todo", findAllTodo);
 
 app.get("/addrecord", addrecord);
-app.get("/find", findAllmsg);
+app.get("/findAll", findAllmsg);
 app.post("/hello", helloPost);
 app.listen(4000);
