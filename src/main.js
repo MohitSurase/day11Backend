@@ -96,9 +96,23 @@ async function findAllTodo(req, res) {
   res.json(list);
 }
 
+async function findAllUser(req, res) {
+  const uri = "mongodb://127.0.0.1:27017";
+  const client = new MongoClient(uri);
+
+  const db = client.db("project");
+  const messageColl = db.collection("user");
+
+  let list = await messageColl.find().toArray();
+
+  await client.close();
+  res.json(list);
+}
+
 app.get("/addtodo", addTodo);
 app.get("/adduser", addUserRecord);
 app.get("/find-all-todo", findAllTodo);
+app.get("/find-all-user", findAllUser);
 
 app.get("/addrecord", addrecord);
 app.get("/findAll", findAllmsg);
