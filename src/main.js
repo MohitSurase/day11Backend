@@ -63,7 +63,7 @@ async function addTodo(req, res) {
     await client.close();
     res.json({ opr: "Success" });
   } catch (err) {
-    res.json({ opr: "Failed" });
+    res.status(500).send("Error" + err.message);
   }
 }
 
@@ -87,7 +87,8 @@ async function addUserRecord(req, res) {
     await client.close();
     res.json({ opr: "Success" });
   } catch (err) {
-    res.json({ opr: "Failed" });
+    //res.json({ opr: "Failed" });
+    res.status(500).send("Error" + err.message);
   }
 }
 
@@ -104,7 +105,7 @@ async function findAllTodo(req, res) {
     await client.close();
     res.json(list);
   } catch (err) {
-    res.json([]);
+    res.status(500).send("Error" + err.message);
   }
 }
 
@@ -121,7 +122,7 @@ async function findAllUser(req, res) {
     await client.close();
     res.json(list);
   } catch (err) {
-    res.json([]);
+    res.status(500).send("Error" + err.message);
   }
 }
 
